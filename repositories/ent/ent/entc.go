@@ -4,6 +4,7 @@ package main
 
 import (
 	"log"
+	"os"
 
 	"entgo.io/contrib/entgql"
 	"entgo.io/ent/entc"
@@ -11,13 +12,14 @@ import (
 )
 
 func main() {
+	path, err := os.Getwd()
 	ex, err := entgql.NewExtension(
 		// Tell Ent to generate a GraphQL schema for
 		// the Ent schema in a file named ent.graphql.
 		entgql.WithSchemaGenerator(),
-		entgql.WithSchemaPath("ent.graphql"),
+		entgql.WithSchemaPath(path+"/repositories/ent/ent.graphql"),
 		entgql.WithWhereInputs(true),
-		entgql.WithConfigPath("../../api/graphql/gqlgen.yml"),
+		entgql.WithConfigPath(path+"/api/graphql/gqlgen.yml"),
 	)
 	if err != nil {
 		log.Fatalf("creating entgql extension: %v", err)
@@ -25,7 +27,7 @@ func main() {
 	opts := []entc.Option{
 		entc.Extensions(ex),
 	}
-	if err := entc.Generate("./ent/schema", &gen.Config{}, opts...); err != nil {
+	if err := entc.Generate(path+"/repositories/ent/ent/schema", &gen.Config{}, opts...); err != nil {
 		log.Fatalf("running ent codegen: %v", err)
 	}
 }

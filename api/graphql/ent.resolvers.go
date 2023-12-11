@@ -6,6 +6,7 @@ package graphql
 
 import (
 	"context"
+	"todo/api/graphql/generated"
 	"todo/repositories/ent/ent"
 
 	"entgo.io/contrib/entgql"
@@ -30,8 +31,8 @@ func (r *queryResolver) Todos(ctx context.Context, after *entgql.Cursor[int], fi
 		)
 }
 
-// Query returns QueryResolver implementation.
-func (r *Resolver) Query() QueryResolver { return &queryResolver{r} }
+// Query returns generated.QueryResolver implementation.
+func (r *Resolver) Query() generated.QueryResolver { return &queryResolver{r} }
 
 type queryResolver struct{ *Resolver }
 
