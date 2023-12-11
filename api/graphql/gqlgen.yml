@@ -1,7 +1,8 @@
 # schema tells gqlgen where the GraphQL schema is located.
 schema:
-  - ../../repositories/ent/ent.graphql
-  - ../../repositories/ent/todo.graphql
+  - ./repositories/ent/ent.graphql
+  - ./repositories/ent/todo.graphql
+
 # Where should the generated server code go?
 exec:
   layout: follow-schema
