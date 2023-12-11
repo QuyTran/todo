@@ -6,17 +6,21 @@ package graphql
 
 import (
 	"context"
-	"fmt"
 	"todo/api/graphql/generated"
 	"todo/repositories/ent/ent"
 )
 
 // CreateTodo is the resolver for the createTodo field.
 func (r *mutationResolver) CreateTodo(ctx context.Context, input ent.CreateTodoInput) (*ent.Todo, error) {
-	panic(fmt.Errorf("not implemented: CreateTodo - createTodo"))
+	return ent.FromContext(ctx).Todo.Create().SetInput(input).Save(ctx)
 }
 
-// Mutation returns generated.MutationResolver implementation.
+// UpdateTodo is the resolver for the updateTodo field.
+func (r *mutationResolver) UpdateTodo(ctx context.Context, id int, input ent.UpdateTodoInput) (*ent.Todo, error) {
+	return ent.FromContext(ctx).Todo.UpdateOneID(id).SetInput(input).Save(ctx)
+}
+
+// Mutation returns MutationResolver implementation.
 func (r *Resolver) Mutation() generated.MutationResolver { return &mutationResolver{r} }
 
 type mutationResolver struct{ *Resolver }
