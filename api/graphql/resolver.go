@@ -1,6 +1,7 @@
 package graphql
 
 import (
+	gen "todo/api/graphql/generated"
 	"todo/repositories/ent/ent"
 
 	"github.com/99designs/gqlgen/graphql"
@@ -15,7 +16,7 @@ type Resolver struct{ client *ent.Client }
 
 // NewSchema creates a graphql executable schema.
 func NewSchema(client *ent.Client) graphql.ExecutableSchema {
-	return NewExecutableSchema(Config{
+	return gen.NewExecutableSchema(gen.Config{
 		Resolvers: &Resolver{client},
 	})
 }
